@@ -1,12 +1,27 @@
 {
-    "scripts": {
-        "test": "jest",
-        "start": "node src/hub.js"
-    },
-    "dependencies": {
-        "@types/jest": "^29.2.5",
-        "@types/node": "^18.11.18",
-        "chance": "^1.1.9",
-        "jest": "^29.3.1"
-    }
+  "scripts": {
+    "test": "jest",
+    "start": "node src/hub.js"
+  },
+  "dependencies": {
+    "@types/jest": "^29.2.5",
+    "@types/node": "^18.11.18",
+    "chance": "^1.1.9",
+    "jest": "^29.3.1"
+  },
+  "name": "caps",
+  "description": "Collaborators: Christopher Lopez",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BedlaminGoliath/caps.git"
+  },
+  "author": "Christopher Lopez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BedlaminGoliath/caps/issues"
+  },
+  "homepage": "https://github.com/BedlaminGoliath/caps#readme"
 }
