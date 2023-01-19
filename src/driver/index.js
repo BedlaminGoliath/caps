@@ -1,10 +1,10 @@
-const { events, EVENT_NAMES } = require('../events');
-const { handlePickup } = require('./handler');
+const { EVENT_NAMES } = require("../utils");
+const { handlePickup, events } = require("./handler");
 
 function startDriver() {
-  console.log('Driver is ready!');
+  console.log("Driver is ready!");
 
   events.on(EVENT_NAMES.pickup, handlePickup);
 }
 
-module.exports = { startDriver };
+startDriver();

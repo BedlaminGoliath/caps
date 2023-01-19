@@ -1,6 +1,7 @@
-const { events, chance, EVENT_NAMES } = require("../events");
+const { chance, EVENT_NAMES } = require("../utils");
+const { io }= require("socket.io-client");
 
-
+const events = io("ws://localhost:3333");
 // Vendor sends pickup event for a store
 // the pickup function that creates our object and emits that signa; that says "pickup for delivery"
 function sendPickup() {
@@ -19,6 +20,8 @@ function acknowledgeDelivery(orderId) {
 }
 
 
-module.exports = { acknowledgeDelivery,sendPickup, };
+module.exports = { acknowledgeDelivery,
+  sendPickup,
+  events, };
 
 

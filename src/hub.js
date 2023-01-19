@@ -1,10 +1,17 @@
-const { startDriver } = require("./driver/index")
-const { startVendor } = require("./vendor/index")
-const { Server } = require ("socket.io");
 
+const { Server } = require("socket.io");
 const io = new Server(3333)
 
-startDriver();
-startVendor();
+// startDriver();
+// startVendor();
 
-console.log("everything is started")
+
+function startEventServer(){
+    io.on("connection",()=>{
+        console.log("have new connection");
+    });
+    
+    console.log("everything is started")
+}
+
+startEventServer();

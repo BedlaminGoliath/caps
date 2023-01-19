@@ -1,4 +1,7 @@
-const { events, EVENT_NAMES, chance } = require("../events");
+const { EVENT_NAMES, chance } = require("../utils");
+const { io }= require("socket.io-client");
+
+const events = io("ws://localhost:3333")
 
 events.on("pickup", handlePickup);
 
@@ -18,4 +21,5 @@ function handlePickup(event) {
 module.exports = {
     deliver,
     handlePickup,
+    events,
 }
