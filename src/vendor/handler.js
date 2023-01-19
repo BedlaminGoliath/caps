@@ -1,6 +1,7 @@
-const { events, chance, EVENT_NAMES } = require("../events");
+const { chance, EVENT_NAMES } = require("../utils");
+const { io }= require("socket.io-client");
 
-
+const events = io("ws://localhost:3333");
 // Vendor sends pickup event for a store
 // the pickup function that creates our object and emits that signa; that says "pickup for delivery"
 function sendPickup() {
@@ -18,23 +19,9 @@ function acknowledgeDelivery(orderId) {
   console.log("Vendor thank you for the delivery", orderId);
 }
 
-// the individual function that sets up that channel
-// when ready this generates a signal that consists of the delivery from the sendpickup function
-// this gets called every few seconds and calls itself.
-function startVendor() {
-  events.on( EVENT_NAMES.delivered, acknowledgeDelivery);
-  console.log("Vendor Ready!");
 
-  function ready() {
-    sendPickup();
+module.exports = { acknowledgeDelivery,
+  sendPickup,
+  events, };
 
-    setTimeout(ready, chance.integer({ min: 750, max: 2000 }));
-  }
-  ready();
-}
 
-module.exports = { startVendor,
-   toTest:{
-    acknowledgeDelivery,
-    sendPickup
-   }  };

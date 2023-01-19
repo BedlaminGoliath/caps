@@ -1,4 +1,7 @@
-const { events, EVENT_NAMES, chance } = require("../events");
+const { EVENT_NAMES, chance } = require("../utils");
+const { io }= require("socket.io-client");
+
+const events = io("ws://localhost:3333")
 
 events.on("pickup", handlePickup);
 
@@ -14,16 +17,9 @@ function handlePickup(event) {
   });
 }
 
-function startDriver() {
-  console.log("Driver Ready!");
-
-  events.on(EVENT_NAMES.pickup, handlePickup);
-}
 
 module.exports = {
-  startDriver,
-  toTest: {
     deliver,
     handlePickup,
-  },
-};
+    events,
+}
