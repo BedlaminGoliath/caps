@@ -21,8 +21,4 @@ function acknowledgeDelivery(orderId) {
 
 module.exports = { acknowledgeDelivery,sendPickup, };
 
-// module.exports = {
-//    toTest:{
-//     acknowledgeDelivery,
-//     sendPickup
-//    }  };
+
