@@ -14,16 +14,8 @@ function handlePickup(event) {
   });
 }
 
-function startDriver() {
-  console.log("Driver Ready!");
-
-  events.on(EVENT_NAMES.pickup, handlePickup);
-}
 
 module.exports = {
-  startDriver,
-  toTest: {
     deliver,
     handlePickup,
-  },
-};
+}

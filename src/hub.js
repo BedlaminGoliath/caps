@@ -1,9 +1,10 @@
-const { startDriver } = require("./driver/handler")
-const { startVendor } = require("./vendor/handler")
+const { startDriver } = require("./driver/index")
+const { startVendor } = require("./vendor/index")
+const { Server } = require ("socket.io");
+
+const io = new Server(3333)
 
 startDriver();
 startVendor();
-// setTimeout(()=>{
-//     startVendor();
-// }, 1500)
+
 console.log("everything is started")

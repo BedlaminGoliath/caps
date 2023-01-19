@@ -4,7 +4,7 @@ const  chance = require("chance")();
 const events = new EventEmitter();
 
 const EVENT_NAMES = {
-    pick: 'pickup',
+    pickup: 'pickup',
     delivered: 'delivered',
 };
 
