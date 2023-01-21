@@ -17,4 +17,6 @@ function startVendor() {
   ready();
 }
 
+// module.exports = { ToTest: { acknowledgeDelivery, sendPickup } };
+
 startVendor();
