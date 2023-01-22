@@ -5,6 +5,7 @@ const events = io("ws://localhost:3333")
 
 events.on("pickup", handlePickup);
 
+
 function deliver(orderId) {
   console.log("DRIVER: picked up", orderId);
   events.emit( EVENT_NAMES.delivered, orderId);
@@ -16,6 +17,8 @@ function handlePickup(event) {
     deliver(event.orderId), chance.integer({ min: 500, max: 1000 });
   });
 }
+
+
 
 
 module.exports = {
