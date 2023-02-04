@@ -3,6 +3,12 @@ const { Server } = require("socket.io");
 const { EVENT_NAMES } = require("./utils");
 const io = new Server(3333)
 
+const Queue = require('./queue');
+const driverqueue = new Queue();
+const vendorQueue = new Queue();
+
+
+
 // startDriver();
 // startVendor();
 
@@ -13,12 +19,16 @@ const io = new Server(3333)
 // Driver: Delivered!2
 
 function startEventServer(){
-    // socket describes who is attached to it
     io.on("connection",(socket)=>{
-        console.log("have new connection", socket.id);
-        socket.join("general");
 
-    
+        socket.on("enqueue driver", ()=>{
+            console.log("enqueue driver after delivery")
+            driverqueue.enqueue(socket)
+        });
+        socket.on("new Driver", ()=>{
+            console.log("new driver connection", socket.id);
+            driverqueue.enqueue(socket)
+        })
 
     // BUSY WORK! whenever the hub gets a pickup or delivery event, send it to everyone
     socket.on(EVENT_NAMES.delivered, (delivered)=>{
@@ -27,8 +37,13 @@ function startEventServer(){
     });
 
     socket.on(EVENT_NAMES.pickup, (pickup)=>{
-        console.log("HUB pickup", pickup);
-        io.to("general").emit(EVENT_NAMES.pickup, pickup);
+        vendorQueue.enqueue(pickup);
+
+        if(driverqueue.front!== null){
+
+            console.log("HUB pickup", pickup);
+            io.emit(EVENT_NAMES.pickup, pickup);
+        }
     });
 
 });
