@@ -20,8 +20,8 @@ function acknowledgeDelivery(orderId) {
 }
 
 
-module.exports = { acknowledgeDelivery,
+module.exports = { toTest: { acknowledgeDelivery,
   sendPickup,
-  events, };
+  events, } };
 
 

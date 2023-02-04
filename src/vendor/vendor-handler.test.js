@@ -1,26 +1,40 @@
-// const { after } = require('node:test');
-// const { events, EVENTS_NAMES } = require('../utils');
-// const { startVendor }, toTest: { acknowledge, sendPickup } = require("../vendor/handler");
+jest.mock("socket.io-client");
+const io = require("socket.io-client");
+io.mockImplementation(()=>{
+    return {
+        on: jest.fn(),
+        emit: jest.fn(),
+    }
+});
 
-// describe("Vendor Handler", ()=>{
+const { EVENT_NAMES } = require('../utils');
+const { toTest: { events, acknowledgeDelivery, sendPickup } } = require("../vendor/handler");
 
-// beforeAll(()=>{
-//     jest.useFakeTimers();
-// });
+describe("test vender handler", ()=> {
+    beforeAll(()=>{
+        jest.useFakeTimers();
+    });
 
-// afterAll(()=>{
-//     jest.clearAllTimers();
-// })
+    afterAll(()=>{
+        jest.clearAllTimers();
+    });
 
-// test("Vendor sends pickup", ()=>{
-//     const emitMock = jest.spyOn(events,"emit");
+    test("vender sends pickup event", ()=>{
+        sendPickup();
 
-//     sendPickup();
+        expect(events.emit).toHaveBeenCalledWith(EVENT_NAMES.pickup, expect.objectContaining({
+            store: expect.stringContaining(""),
+            orderId: expect.stringMatching(/[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}[0-9A-F]{4}-[0-9A-F]{12}/i)
+        }));
+    });
 
-//     expect(emitMock).toHaveBeenCalledWith(EVENTS_NAMES.pickup)
-// })
+    test("test vendor knowledge of delivery", ()=> {
+        const orderId = "1234";
+        const logMock = jest.spyOn(console.log, "log");
 
+        acknowledgeDelivery(orderId);
 
+        expect(logMock).toHaveBeenCalledWith("Venor thanks you for the delivery", orderId);
+    });
 
-
-// })
+})
